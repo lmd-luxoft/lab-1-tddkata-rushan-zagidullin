@@ -87,11 +87,11 @@ namespace TDDKata
         public void TestTooManyNumbers()
         {
             StringCalc calc = new StringCalc();
-            string argument = "1,2,3";
-            int expected = -1;
+            string argument = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20";
+            int expected = 210;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Should return -1 when more than two numbers passed");
+            Assert.That(value, Is.EqualTo(expected), "Should return correct sum when more than two numbers passed");
         }
     }
 }
