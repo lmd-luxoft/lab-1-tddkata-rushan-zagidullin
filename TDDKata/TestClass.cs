@@ -116,5 +116,16 @@ namespace TDDKata
             int value = calc.Sum(argument);
             Assert.That(value, Is.EqualTo(expected), "Should return correct sum when more than two numbers passed");
         }
+        
+        [Test]
+        public void TestBigNumbers()
+        {
+            StringCalc calc = new StringCalc();
+            string argument = "1,1001,2";
+            int expected = 3;
+            
+            int value = calc.Sum(argument);
+            Assert.That(value, Is.EqualTo(expected), "Should return correct sum when more than two numbers passed");
+        }
     }
 }
