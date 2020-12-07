@@ -14,10 +14,6 @@ namespace TDDKata
             }
 
             var numbers = numbersInput.Split(',');
-            if (numbers.Length > 2)
-            {
-                return -1;
-            }
 
             int sum = 0;
             foreach (var number in numbers)
