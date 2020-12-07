@@ -63,7 +63,8 @@ namespace TDDKata
         
         [Test]
         [TestCase("2\n1,1;3", -1)]
-        [TestCase("//;\n2\n1,1;3", 7)]
+        [TestCase("//;\n2;1;1;3", 7)]
+        [TestCase("//Сепаратор кастомный\n2Сепаратор кастомный1Сепаратор кастомный1Сепаратор кастомный3", 7)]
         public void TestCustomDelimeters(string argument, int expected)
         {
             StringCalc calc = new StringCalc();
