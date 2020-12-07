@@ -36,6 +36,11 @@ namespace TDDKata
                     return -1;
                 }
 
+                if (parsedNumber > 1000)
+                {
+                    continue;
+                }
+
                 sum += parsedNumber;
             }
             return sum;
