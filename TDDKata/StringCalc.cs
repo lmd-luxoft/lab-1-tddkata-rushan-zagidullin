@@ -1,6 +1,8 @@
 ﻿// NUnit 3 tests
 // See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace TDDKata
 {
@@ -13,7 +15,17 @@ namespace TDDKata
                 return -1;
             }
 
-            var numbers = numbersInput.Split(',', '\n');
+            string[] separators = {",", "\n"};
+
+            var match = Regex.Match(numbersInput, "\\/\\/(.*)\\\n(.*)");
+            if (match.Success)
+            {
+                separators = new [] {match.Groups[1].Value};
+                numbersInput = match.Groups[2].Value;
+            }
+
+
+            var numbers = numbersInput.Split(separators, StringSplitOptions.None);
 
             int sum = 0;
             foreach (var number in numbers)
