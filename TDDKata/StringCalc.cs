@@ -13,7 +13,7 @@ namespace TDDKata
                 return -1;
             }
 
-            var numbers = numbersInput.Split(',');
+            var numbers = numbersInput.Split(',', '\n');
 
             int sum = 0;
             foreach (var number in numbers)
