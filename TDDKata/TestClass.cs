@@ -25,7 +25,7 @@ namespace TDDKata
             int expected = 2;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(expected), "Wrong sum of one number");
         }
         
         [Test]
@@ -36,7 +36,7 @@ namespace TDDKata
             int expected = 2;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(expected), "Wrong sum of a number and zero");
         }
         
         [Test]
@@ -47,7 +47,7 @@ namespace TDDKata
             int expected = 0;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(expected), "Sum of empty string should return zero");
         }
         
         [Test]
@@ -58,7 +58,7 @@ namespace TDDKata
             int expected = -1;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(expected), "Sum of null should return -1");
         }
         
         [Test]
@@ -69,7 +69,7 @@ namespace TDDKata
             int expected = -1;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(expected), "Should return -1 when negative numbers passed");
         }
         
         [Test]
@@ -80,7 +80,7 @@ namespace TDDKata
             int expected = -1;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(expected), "Should return -1 when unparsable value passed");
         }
         
         [Test]
@@ -91,7 +91,7 @@ namespace TDDKata
             int expected = -1;
             
             int value = calc.Sum(argument);
-            Assert.That(value, Is.EqualTo(expected), "Wrong actual value");
+            Assert.That(value, Is.EqualTo(expected), "Should return -1 when more than two numbers passed");
         }
     }
 }
