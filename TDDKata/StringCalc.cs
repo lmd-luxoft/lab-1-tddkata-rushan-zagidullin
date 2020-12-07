@@ -6,9 +6,31 @@ namespace TDDKata
 {
     internal class StringCalc
     {
-        internal int Sum(string v)
+        internal int Sum(string numbersInput)
         {
-            throw new NotImplementedException();
+            if (numbersInput == null)
+            {
+                return -1;
+            }
+
+            var numbers = numbersInput.Split(',');
+            if (numbers.Length > 2)
+            {
+                return -1;
+            }
+
+            int sum = 0;
+            foreach (var number in numbers)
+            {
+                int parsedNumber = 0;
+                if (number != "" && (!int.TryParse(number, out parsedNumber) || parsedNumber < 0))
+                {
+                    return -1;
+                }
+
+                sum += parsedNumber;
+            }
+            return sum;
         }
     }
 }
