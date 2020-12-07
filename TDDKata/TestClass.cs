@@ -51,6 +51,17 @@ namespace TDDKata
         }
         
         [Test]
+        [TestCase("2,1", 3)]
+        [TestCase("2\n1", 3)]
+        public void TestDifferentDelimeters(string argument, int expected)
+        {
+            StringCalc calc = new StringCalc();
+            
+            int value = calc.Sum(argument);
+            Assert.That(value, Is.EqualTo(expected), "Wrong sum of a numbers");
+        }
+        
+        [Test]
         public void TestNullString()
         {
             StringCalc calc = new StringCalc();
