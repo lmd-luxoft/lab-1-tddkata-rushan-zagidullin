@@ -2,6 +2,7 @@
 // See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace TDDKata
@@ -15,35 +16,73 @@ namespace TDDKata
                 return -1;
             }
 
-            string[] separators = {",", "\n"};
-
-            var match = Regex.Match(numbersInput, "\\/\\/(.*)\\\n(.*)");
-            if (match.Success)
+            if (numbersInput == string.Empty)
             {
-                separators = new [] {match.Groups[1].Value};
-                numbersInput = match.Groups[2].Value;
+                return 0;
             }
 
+            ExtractSeparators(numbersInput, out var separators, out var processingString);
 
-            var numbers = numbersInput.Split(separators, StringSplitOptions.None);
+            var numberStrings = processingString.Split(separators, StringSplitOptions.RemoveEmptyEntries);
 
+            // Исходный цикл, отрефакторенный:
             int sum = 0;
-            foreach (var number in numbers)
+
+            foreach (var numberString in numberStrings)
             {
-                int parsedNumber = 0;
-                if (number != "" && (!int.TryParse(number, out parsedNumber) || parsedNumber < 0))
+                var parsedNumber = 0;
+                if (CannotParse(numberString) || IsNumberNegative(parsedNumber))
                 {
                     return -1;
                 }
 
-                if (parsedNumber > 1000)
+                if (IsNumberTooLarge(parsedNumber))
                 {
                     continue;
                 }
 
                 sum += parsedNumber;
             }
+
+            // Аналогичный циклу результат через LINQ:
+
+            //if (numberStrings.Any(CannotParse))
+            //{
+            //    return -1;
+            //}
+
+            //var parsedNumbers = numberStrings
+            //    .Select(x => int.Parse(x))
+            //    .ToArray();
+
+            //if (parsedNumbers.Any(IsNumberNegative))
+            //{
+            //    return -1;
+            //}
+
+            //var sum = parsedNumbers
+            //    .Where(x => !IsNumberTooLarge(x))
+            //    .Sum();
+
             return sum;
+        }
+
+        private bool CannotParse(string value) => !int.TryParse(value, out var _);
+        private bool IsNumberNegative(int value) => value < 0;
+        private bool IsNumberTooLarge(int value) => value > 1000;
+        private void ExtractSeparators(string value, out string[] separators, out string newValue)
+        {
+            var match = Regex.Match(value, @"\/\/(.*)\n(.*)");
+
+            if (match.Success)
+            {
+                separators = new[] { match.Groups[1].Value };
+                newValue = match.Groups[2].Value;
+                return;
+            }
+
+            separators = new []{ ",", "\n" };
+            newValue = value;
         }
     }
 }
