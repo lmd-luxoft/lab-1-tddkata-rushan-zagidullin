@@ -30,11 +30,18 @@ namespace TDDKata
 
             foreach (var numberString in numberStrings)
             {
-                var parsedNumber = 0;
-                if (CannotParse(numberString) || IsNumberNegative(parsedNumber))
+                if (!CanParse(numberString))
                 {
                     return -1;
                 }
+
+                var parsedNumber = int.Parse(numberString);
+
+                if (IsNumberNegative(parsedNumber))
+                {
+                    return -1;
+                }
+
 
                 if (IsNumberTooLarge(parsedNumber))
                 {
@@ -46,7 +53,7 @@ namespace TDDKata
 
             // Аналогичный циклу результат через LINQ:
 
-            //if (numberStrings.Any(CannotParse))
+            //if (numberStrings.Any(x => !CanParse(x)))
             //{
             //    return -1;
             //}
@@ -67,7 +74,7 @@ namespace TDDKata
             return sum;
         }
 
-        private bool CannotParse(string value) => !int.TryParse(value, out var _);
+        private bool CanParse(string value) => int.TryParse(value, out var _);
         private bool IsNumberNegative(int value) => value < 0;
         private bool IsNumberTooLarge(int value) => value > 1000;
         private void ExtractSeparators(string value, out string[] separators, out string newValue)
