@@ -3,17 +3,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace TDDKata
 {
     internal class StringCalc
     {
+        private const int ErrorResult = -1;
+
         internal int Sum(string numbersInput)
         {
             if (numbersInput == null)
             {
-                return -1;
+                return ErrorResult;
             }
 
             if (numbersInput == string.Empty)
@@ -32,14 +35,14 @@ namespace TDDKata
             {
                 if (!CanParse(numberString))
                 {
-                    return -1;
+                    return ErrorResult;
                 }
 
                 var parsedNumber = int.Parse(numberString);
 
-                if (IsNumberNegative(parsedNumber))
+                if (parsedNumber < 0)
                 {
-                    return -1;
+                    return ErrorResult;
                 }
 
 
@@ -62,7 +65,7 @@ namespace TDDKata
             //    .Select(x => int.Parse(x))
             //    .ToArray();
 
-            //if (parsedNumbers.Any(IsNumberNegative))
+            //if (parsedNumbers.Any(x => x < 0))
             //{
             //    return -1;
             //}
@@ -75,7 +78,7 @@ namespace TDDKata
         }
 
         private bool CanParse(string value) => int.TryParse(value, out var _);
-        private bool IsNumberNegative(int value) => value < 0;
+        //private bool IsNumberNegative(int value) => value < 0;
         private bool IsNumberTooLarge(int value) => value > 1000;
         private void ExtractSeparators(string value, out string[] separators, out string newValue)
         {
